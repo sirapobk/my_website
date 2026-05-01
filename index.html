@@ -1,899 +1,469 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #0e0e0e;
-      --bg2: #161616;
-      --bg3: #1e1e1e;
-      --border: #2a2a2a;
-      --accent: #c8f04a;
-      --accent2: #f0a84a;
-      --text: #e8e8e0;
-      --muted: #888880;
-      --serif: 'DM Serif Display', Georgia, serif;
-      --mono: 'DM Mono', monospace;
-      --sans: 'Sarabun', sans-serif;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      font-weight: 300;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    /* ── NOISE TEXTURE OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 999;
-      opacity: 0.6;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2rem 3rem;
-      background: rgba(14,14,14,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo {
-      font-family: var(--serif);
-      font-size: 1.3rem;
-      color: var(--accent);
-      text-decoration: none;
-      letter-spacing: -0.02em;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--accent); }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 8rem 3rem 4rem;
-      position: relative;
-    }
-
-    .hero-inner {
-      max-width: 900px;
-      width: 100%;
-    }
-
-    .hero-eyebrow {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.2s forwards;
-    }
-
-    .hero-title {
-      font-family: var(--serif);
-      font-size: clamp(3rem, 8vw, 7rem);
-      line-height: 1.0;
-      letter-spacing: -0.03em;
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.4s forwards;
-    }
-
-    .hero-title em {
-      font-style: italic;
-      color: var(--accent2);
-    }
-
-    .hero-sub {
-      font-size: 1.1rem;
-      color: var(--muted);
-      max-width: 520px;
-      margin-bottom: 3rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.6s forwards;
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.8s forwards;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 0.75rem 1.8rem;
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: all 0.2s;
-      cursor: pointer;
-      border: none;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #0e0e0e;
-    }
-
-    .btn-primary:hover {
-      background: #d8ff55;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(200,240,74,0.25);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    /* Decorative line */
-    .hero-line {
-      position: absolute;
-      right: 3rem;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 1px;
-      height: 200px;
-      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
-      opacity: 0.4;
-    }
-
-    /* ── SECTIONS ── */
-    section {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 6rem 3rem;
-    }
-
-    .section-label {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-    }
-
-    .section-title {
-      font-family: var(--serif);
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 3rem;
-    }
-
-    hr.divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 0;
-    }
-
-    /* ── BLOG ── */
-    .blog-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5px;
-      border: 1.5px solid var(--border);
-    }
-
-    .blog-card {
-      background: var(--bg2);
-      padding: 2rem;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-      transition: background 0.2s;
-      border: 1.5px solid transparent;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .blog-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
-    }
-
-    .blog-card:hover { background: var(--bg3); }
-    .blog-card:hover::after { transform: scaleX(1); }
-
-    .blog-tag {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--accent);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-    }
-
-    .blog-card h3 {
-      font-family: var(--serif);
-      font-size: 1.25rem;
-      line-height: 1.3;
-      margin-bottom: 0.75rem;
-      letter-spacing: -0.01em;
-    }
-
-    .blog-card p {
-      font-size: 0.88rem;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-    }
-
-    .blog-date {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-    }
-
-    /* ── ADD BLOG POST FORM ── */
-    .blog-add-btn {
-      margin-top: 2rem;
-    }
-
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(6px);
-      z-index: 200;
-      place-items: center;
-    }
-
-    .modal-overlay.open { display: grid; }
-
-    .modal {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      padding: 2.5rem;
-      width: min(560px, 95vw);
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    .modal h2 {
-      font-family: var(--serif);
-      font-size: 1.6rem;
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.02em;
-    }
-
-    .form-group {
-      margin-bottom: 1.2rem;
-    }
-
-    .form-group label {
-      display: block;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 0.4rem;
-    }
-
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      width: 100%;
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-family: var(--sans);
-      font-size: 0.9rem;
-      padding: 0.65rem 0.9rem;
-      outline: none;
-      transition: border-color 0.2s;
-      resize: vertical;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus { border-color: var(--accent); }
-
-    .form-actions {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-
-    /* ── VIDEO ── */
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .video-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .video-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
-    }
-
-    .video-embed {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-    }
-
-    .video-embed iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border: none;
-    }
-
-    .video-info {
-      padding: 1.2rem 1.5rem;
-    }
-
-    .video-info h3 {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      margin-bottom: 0.4rem;
-      letter-spacing: -0.01em;
-    }
-
-    .video-info p {
-      font-size: 0.82rem;
-      color: var(--muted);
-    }
-
-    /* ── RESUME ── */
-    .resume-wrap {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 3rem;
-    }
-
-    @media (max-width: 640px) {
-      .resume-wrap { grid-template-columns: 1fr; }
-    }
-
-    .resume-sidebar {}
-
-    .resume-section {
-      margin-bottom: 2.5rem;
-    }
-
-    .resume-section h4 {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .skill-tag {
-      display: inline-block;
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      padding: 0.3rem 0.7rem;
-      margin: 0.25rem 0.25rem 0.25rem 0;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-    }
-
-    .contact-item {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .contact-item a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    .exp-item {
-      margin-bottom: 2rem;
-      padding-left: 1rem;
-      border-left: 2px solid var(--border);
-      position: relative;
-    }
-
-    .exp-item::before {
-      content: '';
-      position: absolute;
-      left: -5px; top: 6px;
-      width: 8px; height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-    }
-
-    .exp-item h5 {
-      font-family: var(--serif);
-      font-size: 1.05rem;
-      letter-spacing: -0.01em;
-      margin-bottom: 0.2rem;
-    }
-
-    .exp-meta {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-bottom: 0.6rem;
-      letter-spacing: 0.04em;
-    }
-
-    .exp-item p {
-      font-size: 0.88rem;
-      color: var(--muted);
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 2rem 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    footer p {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-    }
-
-    .social-links {
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    .social-links a {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-
-    .social-links a:hover { color: var(--accent); }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      section { padding: 4rem 1.5rem; }
-      .hero { padding: 7rem 1.5rem 3rem; }
-      .hero-line { display: none; }
-      footer { padding: 1.5rem; }
-    }
-
-    /* ── VIDEO ADD FORM ── */
-    .vimeo-input-wrap {
-      display: flex;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .vimeo-input-wrap input {
-      flex: 1;
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-family: var(--sans);
-      font-size: 0.9rem;
-      padding: 0.65rem 0.9rem;
-      outline: none;
-      min-width: 180px;
-    }
-    .vimeo-input-wrap input:focus { border-color: var(--accent); }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Your Name</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#f5f2ed;
+  --black:#0a0a0a;
+  --dim:rgba(245,242,237,0.45);
+  --serif:'EB Garamond',Georgia,serif;
+  --sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+html,body{width:100%;height:100%;overflow-x:hidden;background:var(--black);color:var(--white);font-family:var(--sans)}
+
+.cursor{position:fixed;width:8px;height:8px;border-radius:50%;background:var(--white);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:transform 0.1s}
+.cursor-ring{position:fixed;width:36px;height:36px;border-radius:50%;border:1px solid rgba(245,242,237,0.4);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.18s ease}
+
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:2rem 3rem;mix-blend-mode:difference;
+}
+.nav-logo{font-family:var(--sans);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--white);text-decoration:none}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--white);text-decoration:none;opacity:0.5;transition:opacity 0.2s}
+.nav-links a:hover,.nav-links a.active{opacity:1}
+
+/* HERO */
+#reel{position:relative;width:100%;height:100vh;overflow:hidden;background:var(--black)}
+.reel-iframe-wrap{position:absolute;inset:0;overflow:hidden}
+.reel-iframe-wrap iframe{
+  width:177.78vh;height:100vh;min-width:100%;min-height:56.25vw;
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;border:none;
+}
+.reel-grad{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 55%,var(--black) 100%);z-index:1}
+.reel-content{
+  position:absolute;bottom:0;left:0;right:0;z-index:2;
+  display:flex;justify-content:space-between;align-items:flex-end;
+  padding:3.5rem 3rem;
+}
+.reel-title{font-family:var(--serif);font-size:clamp(2.5rem,6vw,5.5rem);font-style:italic;font-weight:400;line-height:1;letter-spacing:-0.02em}
+.reel-meta{text-align:right;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);line-height:2.2}
+.reel-change{
+  position:absolute;bottom:3.5rem;left:50%;transform:translateX(-50%);z-index:3;
+  font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);
+  background:transparent;border:1px solid rgba(245,242,237,0.2);
+  padding:0.4rem 1rem;cursor:pointer;transition:all 0.2s;
+}
+.reel-change:hover{color:var(--white);border-color:rgba(245,242,237,0.5)}
+
+/* WORK */
+#work{padding:6rem 3rem;background:var(--black)}
+.section-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3rem;border-bottom:1px solid rgba(245,242,237,0.1);padding-bottom:1rem}
+.section-row h2{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;opacity:0.4}
+.section-row span{font-size:0.65rem;letter-spacing:0.1em;opacity:0.3}
+
+.vid-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5px;background:rgba(245,242,237,0.07)}
+.vid-item{background:var(--black);position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer}
+.vid-item iframe{position:absolute;inset:0;width:100%;height:100%;border:none;pointer-events:none}
+.vid-overlay{position:absolute;inset:0;background:rgba(10,10,10,0.5);display:flex;align-items:flex-end;padding:1.5rem;opacity:0;transition:opacity 0.35s;z-index:2}
+.vid-item:hover .vid-overlay{opacity:1}
+.vid-label{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--white);line-height:1.8}
+.vid-add-btn{
+  background:transparent;border:none;aspect-ratio:16/9;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.75rem;
+  cursor:pointer;color:rgba(245,242,237,0.25);font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;
+  transition:color 0.2s;
+}
+.vid-add-btn:hover{color:rgba(245,242,237,0.7)}
+.vid-add-btn svg{width:24px;height:24px;opacity:0.4}
+
+/* BLOG */
+#blog{padding:6rem 3rem;background:var(--black)}
+.s-title{font-family:var(--serif);font-style:italic;font-size:clamp(1.8rem,4vw,3.5rem);font-weight:400;letter-spacing:-0.02em;margin-bottom:0.4rem}
+.s-sub{font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;opacity:0.3;margin-bottom:3rem}
+.blog-list{border-top:1px solid rgba(245,242,237,0.1)}
+.blog-row{
+  display:grid;grid-template-columns:3.5rem 1fr auto;
+  align-items:baseline;gap:2rem;padding:1.7rem 0;
+  border-bottom:1px solid rgba(245,242,237,0.07);
+  cursor:pointer;transition:opacity 0.2s;
+}
+.blog-row:hover{opacity:0.55}
+.blog-num{font-size:0.65rem;opacity:0.25;letter-spacing:0.08em}
+.blog-row h3{font-family:var(--serif);font-style:italic;font-size:clamp(1rem,2.4vw,1.6rem);font-weight:400;letter-spacing:-0.01em}
+.blog-pill{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;border:1px solid rgba(245,242,237,0.2);padding:0.28rem 0.7rem;opacity:0.5;white-space:nowrap}
+.blog-add{margin-top:1.5rem}
+.ghost-btn{
+  background:none;border:1px solid rgba(245,242,237,0.18);
+  color:rgba(245,242,237,0.4);font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;
+  padding:0.6rem 1.5rem;cursor:pointer;transition:all 0.2s;
+}
+.ghost-btn:hover{border-color:rgba(245,242,237,0.5);color:var(--white)}
+
+/* RESUME */
+#resume{padding:6rem 3rem 8rem;background:var(--black)}
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;margin-top:3rem}
+.res-block{margin-bottom:2.5rem}
+.res-block-label{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;opacity:0.35;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(245,242,237,0.08)}
+.res-body{font-size:0.85rem;opacity:0.5;line-height:1.9}
+.exp-item{padding:1rem 0;border-bottom:1px solid rgba(245,242,237,0.07)}
+.exp-item h4{font-family:var(--serif);font-style:italic;font-size:1.05rem;font-weight:400;margin-bottom:0.15rem}
+.exp-meta{font-size:0.65rem;letter-spacing:0.06em;opacity:0.35;margin-bottom:0.4rem}
+.exp-item p{font-size:0.8rem;opacity:0.45;line-height:1.7}
+.skill-row{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.5rem}
+.skill-pill{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;border:1px solid rgba(245,242,237,0.15);padding:0.28rem 0.75rem;opacity:0.45}
+.contact-row{font-size:0.78rem;opacity:0.4;margin-bottom:0.5rem;letter-spacing:0.03em}
+.contact-row a{color:var(--white);text-decoration:none;border-bottom:1px solid rgba(245,242,237,0.15);transition:opacity 0.2s}
+.contact-row a:hover{opacity:0.7}
+.dl-btn{display:inline-block;margin-top:1.5rem;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;border:1px solid rgba(245,242,237,0.25);padding:0.7rem 2rem;color:var(--white);text-decoration:none;transition:all 0.25s}
+.dl-btn:hover{background:var(--white);color:var(--black)}
+
+/* FOOTER */
+footer{padding:2rem 3rem;display:flex;justify-content:space-between;border-top:1px solid rgba(245,242,237,0.07);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.25}
+
+/* MODALS */
+.modal-bg{display:none;position:fixed;inset:0;z-index:500;background:rgba(10,10,10,0.88);backdrop-filter:blur(10px);align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal-box{background:#111;border:1px solid rgba(245,242,237,0.1);padding:3rem;width:min(580px,94vw);max-height:90vh;overflow-y:auto}
+.modal-box h2{font-family:var(--serif);font-style:italic;font-size:1.8rem;font-weight:400;margin-bottom:2rem}
+.mf-label{display:block;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;opacity:0.4;margin-bottom:0.4rem}
+.mf-input,.mf-textarea{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(245,242,237,0.15);color:var(--white);font-size:0.9rem;font-family:var(--sans);padding:0.5rem 0;margin-bottom:1.5rem;outline:none;transition:border-color 0.2s}
+.mf-input:focus,.mf-textarea:focus{border-color:rgba(245,242,237,0.55)}
+.mf-textarea{resize:vertical;min-height:120px;line-height:1.7}
+.modal-actions{display:flex;gap:1rem;margin-top:0.5rem}
+.mf-btn{background:var(--white);color:var(--black);border:none;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.75rem 2rem;cursor:pointer;transition:opacity 0.2s}
+.mf-btn:hover{opacity:0.8}
+.mf-btn-ghost{background:transparent;color:var(--dim);border:1px solid rgba(245,242,237,0.15);font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.75rem 1.5rem;cursor:pointer;transition:all 0.2s}
+.mf-btn-ghost:hover{color:var(--white);border-color:rgba(245,242,237,0.4)}
+.read-content{font-size:0.9rem;opacity:0.55;line-height:1.95;margin-top:1rem;white-space:pre-wrap}
+.lb-wrap{position:relative;padding-bottom:56.25%;height:0;margin-top:1.5rem}
+.lb-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+
+@media(max-width:768px){
+  nav{padding:1.4rem 1.5rem}
+  #work,#blog,#resume{padding:4rem 1.5rem}
+  .reel-content{padding:2.5rem 1.5rem}
+  .vid-grid{grid-template-columns:1fr}
+  .blog-row{grid-template-columns:2.5rem 1fr;gap:1rem}
+  .blog-pill{display:none}
+  .res-grid{grid-template-columns:1fr;gap:2.5rem}
+}
+</style>
 </head>
 <body>
 
-<!-- NAV -->
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curRing"></div>
+
 <nav>
-  <a href="#" class="nav-logo">Yourname.</a>
+  <a href="#reel" class="nav-logo">Your Name</a>
   <ul class="nav-links">
-    <li><a href="#blog">Blog</a></li>
-    <li><a href="#videos">Videos</a></li>
-    <li><a href="#resume">Resume</a></li>
+    <li><a href="#reel" class="active" data-nav="reel">Reel</a></li>
+    <li><a href="#work" data-nav="work">Work</a></li>
+    <li><a href="#blog" data-nav="blog">Writing</a></li>
+    <li><a href="#resume" data-nav="resume">Info</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-inner">
-    <p class="hero-eyebrow">// Portfolio & Blog</p>
-    <h1 class="hero-title">Hello, I'm<br /><em>Your Name</em></h1>
-    <p class="hero-sub">นักพัฒนา / ดีไซเนอร์ / ครีเอเตอร์ — ชอบสร้างสิ่งที่มีความหมายและสวยงาม</p>
-    <div class="hero-cta">
-      <a href="#blog" class="btn btn-primary">อ่าน Blog</a>
-      <a href="#resume" class="btn btn-ghost">ดู Resume</a>
+<!-- HERO REEL -->
+<section id="reel">
+  <div class="reel-iframe-wrap">
+    <iframe id="heroVid"
+      src="https://player.vimeo.com/video/76979871?background=1&autoplay=1&loop=1&muted=1"
+      allow="autoplay; fullscreen"></iframe>
+  </div>
+  <div class="reel-grad"></div>
+  <div class="reel-content">
+    <div class="reel-title">Showreel<br/><span style="opacity:0.45;font-style:normal;font-size:0.7em">2025</span></div>
+    <div class="reel-meta">
+      Director &amp; Editor<br/>
+      Bangkok, Thailand<br/>
+      <span style="opacity:0.35">Available for projects</span>
     </div>
   </div>
-  <div class="hero-line"></div>
-</div>
+  <button class="reel-change" onclick="openHeroEdit()">Change Hero Video</button>
+</section>
 
-<hr class="divider" />
+<!-- WORK -->
+<section id="work">
+  <div class="section-row">
+    <h2>Selected Work</h2>
+    <span id="vidCount"></span>
+  </div>
+  <div class="vid-grid" id="vidGrid"></div>
+</section>
 
-<!-- ── BLOG ── -->
+<!-- BLOG -->
 <section id="blog">
-  <p class="section-label">// 01 — Writing</p>
-  <h2 class="section-title">Blog Posts</h2>
-
-  <div class="blog-grid" id="blogGrid">
-    <!-- populated by JS -->
-  </div>
-
-  <div class="blog-add-btn">
-    <button class="btn btn-ghost" onclick="openBlogModal()">+ เพิ่ม Post ใหม่</button>
+  <div class="s-title">Writing</div>
+  <div class="s-sub">Notes &amp; Thoughts</div>
+  <div class="blog-list" id="blogList"></div>
+  <div class="blog-add">
+    <button class="ghost-btn" onclick="openBlogModal()">+ New Entry</button>
   </div>
 </section>
 
-<hr class="divider" />
-
-<!-- ── VIDEOS ── -->
-<section id="videos">
-  <p class="section-label">// 02 — Videos</p>
-  <h2 class="section-title">Vimeo Works</h2>
-
-  <div class="vimeo-input-wrap">
-    <input type="text" id="vimeoIdInput" placeholder="ใส่ Vimeo Video ID หรือ URL เช่น 123456789" />
-    <input type="text" id="vimeoTitleInput" placeholder="ชื่อ Video" />
-    <button class="btn btn-primary" onclick="addVideo()">+ เพิ่ม Video</button>
-  </div>
-
-  <div class="video-grid" id="videoGrid">
-    <!-- populated by JS -->
-  </div>
-</section>
-
-<hr class="divider" />
-
-<!-- ── RESUME ── -->
+<!-- INFO / RESUME -->
 <section id="resume">
-  <p class="section-label">// 03 — Resume</p>
-  <h2 class="section-title">About Me</h2>
-
-  <div class="resume-wrap">
-    <!-- SIDEBAR -->
-    <div class="resume-sidebar">
-      <div class="resume-section">
-        <h4>Contact</h4>
-        <div class="contact-item">📧 <a href="mailto:you@email.com">you@email.com</a></div>
-        <div class="contact-item">🌐 <a href="#">yoursite.com</a></div>
-        <div class="contact-item">🐙 <a href="#">github.com/you</a></div>
-        <div class="contact-item">📍 Bangkok, TH</div>
+  <div class="s-title">Info</div>
+  <div class="s-sub">About &amp; Experience</div>
+  <div class="res-grid">
+    <div>
+      <div class="res-block">
+        <div class="res-block-label">About</div>
+        <p class="res-body">ผมเป็น director และ editor ที่ทำงานด้าน visual storytelling ทั้ง commercial, short film และ music video สนใจเรื่อง cinematic lighting และ color มาตลอด ปัจจุบันรับงาน freelance ทั้ง local และ international</p>
+        <a href="#" class="dl-btn">Download CV ↓</a>
       </div>
-
-      <div class="resume-section">
-        <h4>Skills</h4>
-        <span class="skill-tag">JavaScript</span>
-        <span class="skill-tag">React</span>
-        <span class="skill-tag">Node.js</span>
-        <span class="skill-tag">Python</span>
-        <span class="skill-tag">Figma</span>
-        <span class="skill-tag">CSS</span>
-        <span class="skill-tag">Git</span>
-        <span class="skill-tag">SQL</span>
-      </div>
-
-      <div class="resume-section">
-        <h4>Education</h4>
-        <div style="font-size:0.88rem;">
-          <strong>วิศวกรรมคอมพิวเตอร์</strong><br />
-          <span style="color:var(--muted);font-size:0.8rem;">มหาวิทยาลัย ... · 2562–2566</span>
-        </div>
-      </div>
-
-      <div>
-        <a href="#" class="btn btn-primary" style="font-size:0.72rem;">Download CV (PDF)</a>
+      <div class="res-block">
+        <div class="res-block-label">Contact</div>
+        <div class="contact-row">Email — <a href="mailto:you@email.com">you@email.com</a></div>
+        <div class="contact-row">Vimeo — <a href="#">vimeo.com/yourname</a></div>
+        <div class="contact-row">Instagram — <a href="#">@yourname</a></div>
+        <div class="contact-row">Location — Bangkok, Thailand</div>
       </div>
     </div>
-
-    <!-- MAIN EXPERIENCE -->
     <div>
-      <div class="resume-section">
-        <h4>Experience</h4>
-
+      <div class="res-block">
+        <div class="res-block-label">Experience</div>
         <div class="exp-item">
-          <h5>Senior Frontend Developer</h5>
-          <div class="exp-meta">Company Name · ม.ค. 2567 – ปัจจุบัน</div>
-          <p>พัฒนาระบบ web application สำหรับลูกค้าระดับองค์กร ดูแล codebase หลักและออกแบบ design system</p>
+          <h4>Senior Video Editor</h4>
+          <div class="exp-meta">Studio Name · 2023 – Present</div>
+          <p>ดูแล post-production ตั้งแต่ offline edit จนถึง color grade และ final delivery</p>
         </div>
-
         <div class="exp-item">
-          <h5>Full Stack Developer</h5>
-          <div class="exp-meta">Startup Co. · มิ.ย. 2565 – ธ.ค. 2566</div>
-          <p>สร้าง product ตั้งแต่ต้นจนจบ ครอบคลุมทั้ง frontend, API, และ database design</p>
+          <h4>Freelance Director</h4>
+          <div class="exp-meta">Self · 2021 – Present</div>
+          <p>กำกับ commercial และ short film ให้แบรนด์ต่างๆ ทั้ง local และ international</p>
         </div>
-
         <div class="exp-item">
-          <h5>UX/UI Designer</h5>
-          <div class="exp-meta">Agency XYZ · มิ.ย. 2564 – พ.ค. 2565</div>
-          <p>ออกแบบ interface สำหรับแอปมือถือและเว็บ รับผิดชอบ user research และ prototyping</p>
+          <h4>Motion Designer</h4>
+          <div class="exp-meta">Agency · 2019 – 2021</div>
+          <p>สร้าง motion graphic และ visual effect สำหรับ broadcast และ digital</p>
         </div>
       </div>
-
-      <div class="resume-section">
-        <h4>Projects</h4>
-
+      <div class="res-block">
+        <div class="res-block-label">Skills</div>
+        <div class="skill-row">
+          <span class="skill-pill">Premiere Pro</span>
+          <span class="skill-pill">DaVinci Resolve</span>
+          <span class="skill-pill">After Effects</span>
+          <span class="skill-pill">Cinema 4D</span>
+          <span class="skill-pill">Lighting</span>
+          <span class="skill-pill">Color Grading</span>
+          <span class="skill-pill">Cinematography</span>
+        </div>
+      </div>
+      <div class="res-block">
+        <div class="res-block-label">Education</div>
         <div class="exp-item">
-          <h5>Open Source Project</h5>
-          <div class="exp-meta">Personal · 2566</div>
-          <p>เครื่องมือ developer ที่มีผู้ใช้งานกว่า 5,000 คน — TypeScript, GitHub Actions</p>
+          <h4>Film &amp; Media Arts</h4>
+          <div class="exp-meta">Chulalongkorn University · 2015 – 2019</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<hr class="divider" />
-
-<!-- FOOTER -->
 <footer>
-  <p>© 2025 Your Name · Built with GitHub Pages</p>
-  <div class="social-links">
-    <a href="#">GitHub</a>
-    <a href="#">Twitter</a>
-    <a href="#">LinkedIn</a>
-    <a href="#">Vimeo</a>
-  </div>
+  <span>© 2025 Your Name</span>
+  <span>Bangkok · Thailand</span>
 </footer>
 
-<!-- BLOG MODAL -->
-<div class="modal-overlay" id="blogModal">
-  <div class="modal">
-    <h2>เพิ่ม Blog Post</h2>
-    <div class="form-group">
-      <label>Title</label>
-      <input type="text" id="postTitle" placeholder="ชื่อบทความ" />
-    </div>
-    <div class="form-group">
-      <label>Category Tag</label>
-      <input type="text" id="postTag" placeholder="เช่น Design, Dev, Life" />
-    </div>
-    <div class="form-group">
-      <label>Excerpt (ย่อหน้าแรก)</label>
-      <textarea id="postExcerpt" rows="3" placeholder="สรุปสั้นๆ ของบทความ"></textarea>
-    </div>
-    <div class="form-group">
-      <label>Content (HTML หรือ Text)</label>
-      <textarea id="postContent" rows="6" placeholder="เนื้อหาเต็มของบทความ..."></textarea>
-    </div>
-    <div class="form-actions">
-      <button class="btn btn-primary" onclick="savePost()">บันทึก Post</button>
-      <button class="btn btn-ghost" onclick="closeBlogModal()">ยกเลิก</button>
+<!-- MODAL: Add Video -->
+<div class="modal-bg" id="vidModal">
+  <div class="modal-box">
+    <h2>Add Video</h2>
+    <label class="mf-label">Vimeo ID or URL</label>
+    <input class="mf-input" id="mfVimeoId" placeholder="e.g. 123456789" />
+    <label class="mf-label">Title</label>
+    <input class="mf-input" id="mfVimeoTitle" placeholder="Video title" />
+    <label class="mf-label">Category</label>
+    <input class="mf-input" id="mfVimeoTag" placeholder="e.g. Commercial, Short Film" />
+    <div class="modal-actions">
+      <button class="mf-btn" onclick="saveVid()">Add</button>
+      <button class="mf-btn-ghost" onclick="closeModal('vidModal')">Cancel</button>
     </div>
   </div>
 </div>
 
-<!-- READ POST MODAL -->
-<div class="modal-overlay" id="readModal">
-  <div class="modal" style="max-width:680px;">
-    <p class="blog-tag" id="readTag"></p>
-    <h2 id="readTitle" style="margin-bottom:0.5rem;"></h2>
-    <p class="blog-date" id="readDate" style="margin-bottom:1.5rem;"></p>
-    <div id="readContent" style="font-size:0.95rem;line-height:1.8;color:var(--muted);"></div>
-    <div style="margin-top:2rem;">
-      <button class="btn btn-ghost" onclick="closeReadModal()">← ปิด</button>
+<!-- MODAL: Change Hero -->
+<div class="modal-bg" id="heroModal">
+  <div class="modal-box">
+    <h2>Hero Video</h2>
+    <label class="mf-label">Vimeo ID or URL</label>
+    <input class="mf-input" id="mfHeroId" placeholder="e.g. 76979871" />
+    <div class="modal-actions">
+      <button class="mf-btn" onclick="saveHero()">Apply</button>
+      <button class="mf-btn-ghost" onclick="closeModal('heroModal')">Cancel</button>
     </div>
+  </div>
+</div>
+
+<!-- MODAL: Add Blog -->
+<div class="modal-bg" id="blogModal">
+  <div class="modal-box">
+    <h2>New Entry</h2>
+    <label class="mf-label">Title</label>
+    <input class="mf-input" id="mfBlogTitle" placeholder="Title" />
+    <label class="mf-label">Tag</label>
+    <input class="mf-input" id="mfBlogTag" placeholder="e.g. Notes, Essay, Review" />
+    <label class="mf-label">Content</label>
+    <textarea class="mf-textarea" id="mfBlogContent" placeholder="Write your entry..."></textarea>
+    <div class="modal-actions">
+      <button class="mf-btn" onclick="saveBlog()">Publish</button>
+      <button class="mf-btn-ghost" onclick="closeModal('blogModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Read Blog -->
+<div class="modal-bg" id="readModal">
+  <div class="modal-box" style="max-width:680px">
+    <span style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;opacity:0.3" id="rdTag"></span>
+    <h2 style="margin-top:0.4rem" id="rdTitle"></h2>
+    <span style="font-size:0.62rem;opacity:0.25;letter-spacing:0.06em" id="rdDate"></span>
+    <div class="read-content" id="rdContent"></div>
+    <div class="modal-actions" style="margin-top:2rem">
+      <button class="mf-btn-ghost" onclick="closeModal('readModal')">← Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Vimeo Lightbox -->
+<div class="modal-bg" id="lbModal">
+  <div class="modal-box" style="max-width:900px;width:94vw">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.5rem">
+      <h2 id="lbTitle" style="font-size:1.3rem"></h2>
+      <button class="mf-btn-ghost" onclick="closeLB()" style="padding:0.35rem 0.9rem">✕</button>
+    </div>
+    <div class="lb-wrap"><iframe id="lbIframe" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
   </div>
 </div>
 
 <script>
-  // ── DATA STORE ──
-  const defaultPosts = [
-    {
-      id: 1,
-      title: "ทำไม Design System ถึงสำคัญ",
-      tag: "Design",
-      excerpt: "เมื่อทีมโต ขึ้น ความสม่ำเสมอของ UI กลายเป็นเรื่องท้าทาย — นี่คือเหตุผลที่ทุก product ต้องการ Design System",
-      content: "Design System คือชุดของ components, patterns, และ guidelines ที่ทีมใช้ร่วมกัน ช่วยให้การพัฒนาเร็วขึ้น และ product มีความสม่ำเสมอในทุก touchpoint\n\nสิ่งที่ดี Design System ต้องมี ได้แก่ Color tokens, Typography scale, Spacing system, Component library และ Documentation",
-      date: "2 พ.ค. 2568"
-    },
-    {
-      id: 2,
-      title: "เรียน React ในปี 2025 ต้องรู้อะไรบ้าง",
-      tag: "Dev",
-      excerpt: "React ecosystem เปลี่ยนเร็ว — Server Components, Suspense, และ Concurrent Mode คือหัวข้อที่ไม่ควรพลาด",
-      content: "ในปี 2025 การเรียน React ต้องโฟกัสที่: React Server Components (RSC), The new use() hook, Concurrent features, และ Frameworks เช่น Next.js App Router",
-      date: "18 เม.ย. 2568"
-    },
-    {
-      id: 3,
-      title: "ประสบการณ์ทำ Freelance ปีแรก",
-      tag: "Life",
-      excerpt: "จากพนักงานสู่ freelancer — บทเรียนที่ได้เรียนรู้ในปีแรกทั้งเรื่องลูกค้า การเงิน และ work-life balance",
-      content: "ปีแรกของการทำ freelance สอนผมเยอะมาก สิ่งสำคัญที่สุดคือ: กำหนดขอบเขตงานให้ชัด, ออกใบเสนอราคาอย่างมีระบบ, มีเงินสำรองอย่างน้อย 3 เดือน และหา community ที่ support กัน",
-      date: "5 มี.ค. 2568"
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+document.addEventListener('mousemove',e=>{
+  cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
+  ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px';
+});
+
+function extractId(s){
+  s=(s||'').trim();
+  const m=s.match(/(?:vimeo\.com\/|video\/)(\d+)/);
+  if(m)return m[1];
+  if(/^\d+$/.test(s))return s;
+  return null;
+}
+
+const dVids=[
+  {id:'76979871',title:'Big Buck Bunny',tag:'Short Film'},
+  {id:'148751763',title:'Showreel 2024',tag:'Reel'},
+];
+const dPosts=[
+  {id:1,title:'On the Art of Restraint in Editing',tag:'Notes',date:'2 May 2025',content:'The best cuts are the ones the audience never notices. Restraint in editing is not about removing things — it is about knowing what serves the story and what serves the editor\'s ego.\n\nIn my experience, the hardest skill to develop is the ability to cut a scene you love because the film does not need it.'},
+  {id:2,title:'Vimeo vs YouTube for Creatives in 2025',tag:'Essay',date:'18 Apr 2025',content:'Vimeo has always been the platform of choice for serious filmmakers — better compression, a cleaner aesthetic, and an audience that comes to watch rather than scroll.\n\nMy current approach: Vimeo for portfolio and client deliverables, YouTube for reach and discovery.'},
+];
+
+let vids=JSON.parse(localStorage.getItem('pf_vids')||'null')||dVids;
+let posts=JSON.parse(localStorage.getItem('pf_posts')||'null')||dPosts;
+const sv=()=>localStorage.setItem('pf_vids',JSON.stringify(vids));
+const sp=()=>localStorage.setItem('pf_posts',JSON.stringify(posts));
+
+function renderVids(){
+  const g=document.getElementById('vidGrid');
+  document.getElementById('vidCount').textContent=vids.length+' items';
+  g.innerHTML=vids.map(v=>`
+    <div class="vid-item" onclick="openLB('${v.id}','${v.title.replace(/'/g,"\\'")}')">
+      <iframe src="https://player.vimeo.com/video/${v.id}?background=1&muted=1" allow="autoplay"></iframe>
+      <div class="vid-overlay"><div class="vid-label">${v.title}<br/><span style="opacity:0.45">${v.tag||''}</span></div></div>
+    </div>
+  `).join('')+`
+    <button class="vid-add-btn" onclick="openModal('vidModal')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Add Video
+    </button>
+  `;
+}
+
+function renderBlog(){
+  const l=document.getElementById('blogList');
+  l.innerHTML=posts.map((p,i)=>`
+    <div class="blog-row" onclick="openRead(${p.id})">
+      <span class="blog-num">${String(i+1).padStart(2,'0')}</span>
+      <h3>${p.title}</h3>
+      <span class="blog-pill">${p.tag}</span>
+    </div>
+  `).join('');
+}
+
+function openModal(id){document.getElementById(id).classList.add('open')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+
+function openHeroEdit(){openModal('heroModal')}
+function saveHero(){
+  const id=extractId(document.getElementById('mfHeroId').value);
+  if(!id){alert('Invalid Vimeo ID');return}
+  document.getElementById('heroVid').src=`https://player.vimeo.com/video/${id}?background=1&autoplay=1&loop=1&muted=1`;
+  closeModal('heroModal');
+  document.getElementById('mfHeroId').value='';
+}
+
+function saveVid(){
+  const id=extractId(document.getElementById('mfVimeoId').value);
+  const title=document.getElementById('mfVimeoTitle').value.trim()||'Untitled';
+  const tag=document.getElementById('mfVimeoTag').value.trim()||'';
+  if(!id){alert('Invalid Vimeo ID or URL');return}
+  vids.push({id,title,tag});sv();renderVids();closeModal('vidModal');
+  ['mfVimeoId','mfVimeoTitle','mfVimeoTag'].forEach(x=>document.getElementById(x).value='');
+}
+
+function openBlogModal(){openModal('blogModal')}
+function saveBlog(){
+  const title=document.getElementById('mfBlogTitle').value.trim();
+  const tag=document.getElementById('mfBlogTag').value.trim()||'Notes';
+  const content=document.getElementById('mfBlogContent').value.trim();
+  if(!title||!content){alert('Please fill in title and content');return}
+  const d=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  posts.unshift({id:Date.now(),title,tag,date:d,content});
+  sp();renderBlog();closeModal('blogModal');
+  ['mfBlogTitle','mfBlogTag','mfBlogContent'].forEach(x=>document.getElementById(x).value='');
+}
+
+function openRead(id){
+  const p=posts.find(x=>x.id===id);if(!p)return;
+  document.getElementById('rdTag').textContent=p.tag;
+  document.getElementById('rdTitle').textContent=p.title;
+  document.getElementById('rdDate').textContent=p.date;
+  document.getElementById('rdContent').textContent=p.content;
+  openModal('readModal');
+}
+
+function openLB(id,title){
+  document.getElementById('lbTitle').textContent=title;
+  document.getElementById('lbIframe').src=`https://player.vimeo.com/video/${id}?autoplay=1&color=f5f2ed&title=0&byline=0&portrait=0`;
+  openModal('lbModal');
+}
+function closeLB(){document.getElementById('lbIframe').src='';closeModal('lbModal')}
+
+document.querySelectorAll('.modal-bg').forEach(el=>{
+  el.addEventListener('click',e=>{
+    if(e.target===el){
+      if(el.id==='lbModal')closeLB();
+      else closeModal(el.id);
     }
-  ];
-
-  const defaultVideos = [
-    { id: "76979871", title: "Big Buck Bunny — Sample Vimeo", desc: "Vimeo embed ตัวอย่าง" },
-    { id: "148751763", title: "Showreel 2024", desc: "ผลงานรวมปี 2024" }
-  ];
-
-  // Load from localStorage or defaults
-  let posts = JSON.parse(localStorage.getItem('ghp_posts') || 'null') || defaultPosts;
-  let videos = JSON.parse(localStorage.getItem('ghp_videos') || 'null') || defaultVideos;
-
-  function savePosts() { localStorage.setItem('ghp_posts', JSON.stringify(posts)); }
-  function saveVideos() { localStorage.setItem('ghp_videos', JSON.stringify(videos)); }
-
-  // ── BLOG RENDER ──
-  function renderBlog() {
-    const grid = document.getElementById('blogGrid');
-    grid.innerHTML = posts.map(p => `
-      <a class="blog-card" href="#" onclick="openPost(${p.id}); return false;">
-        <div class="blog-tag">${p.tag}</div>
-        <h3>${p.title}</h3>
-        <p>${p.excerpt}</p>
-        <div class="blog-date">${p.date}</div>
-      </a>
-    `).join('');
-  }
-
-  function openPost(id) {
-    const p = posts.find(x => x.id === id);
-    if (!p) return;
-    document.getElementById('readTag').textContent = p.tag;
-    document.getElementById('readTitle').textContent = p.title;
-    document.getElementById('readDate').textContent = p.date;
-    document.getElementById('readContent').innerHTML = p.content.replace(/\n/g, '<br/>');
-    document.getElementById('readModal').classList.add('open');
-  }
-
-  function closeReadModal() {
-    document.getElementById('readModal').classList.remove('open');
-  }
-
-  // ── BLOG MODAL ──
-  function openBlogModal() { document.getElementById('blogModal').classList.add('open'); }
-  function closeBlogModal() { document.getElementById('blogModal').classList.remove('open'); }
-
-  function savePost() {
-    const title = document.getElementById('postTitle').value.trim();
-    const tag = document.getElementById('postTag').value.trim() || 'General';
-    const excerpt = document.getElementById('postExcerpt').value.trim();
-    const content = document.getElementById('postContent').value.trim();
-    if (!title || !excerpt) { alert('กรุณาใส่ชื่อและ excerpt'); return; }
-
-    const now = new Date();
-    const thDate = now.toLocaleDateString('th-TH', { day:'numeric', month:'short', year:'numeric' });
-
-    posts.unshift({ id: Date.now(), title, tag, excerpt, content, date: thDate });
-    savePosts();
-    renderBlog();
-    closeBlogModal();
-    ['postTitle','postTag','postExcerpt','postContent'].forEach(id => document.getElementById(id).value = '');
-  }
-
-  // ── VIDEO RENDER ──
-  function extractVimeoId(input) {
-    input = input.trim();
-    const match = input.match(/(?:vimeo\.com\/|video\/)(\d+)/);
-    if (match) return match[1];
-    if (/^\d+$/.test(input)) return input;
-    return null;
-  }
-
-  function renderVideos() {
-    const grid = document.getElementById('videoGrid');
-    grid.innerHTML = videos.map((v, i) => `
-      <div class="video-card">
-        <div class="video-embed">
-          <iframe src="https://player.vimeo.com/video/${v.id}?color=c8f04a&title=0&byline=0&portrait=0"
-            allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
-        </div>
-        <div class="video-info">
-          <h3>${v.title}</h3>
-          <p>${v.desc || ''}</p>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  function addVideo() {
-    const raw = document.getElementById('vimeoIdInput').value;
-    const title = document.getElementById('vimeoTitleInput').value.trim() || 'Untitled Video';
-    const id = extractVimeoId(raw);
-    if (!id) { alert('ไม่พบ Vimeo ID — ลองใส่ตัวเลข ID หรือ URL เต็ม'); return; }
-    videos.push({ id, title, desc: '' });
-    saveVideos();
-    renderVideos();
-    document.getElementById('vimeoIdInput').value = '';
-    document.getElementById('vimeoTitleInput').value = '';
-  }
-
-  // ── CLOSE ON OVERLAY CLICK ──
-  document.querySelectorAll('.modal-overlay').forEach(el => {
-    el.addEventListener('click', e => {
-      if (e.target === el) el.classList.remove('open');
-    });
   });
+});
 
-  // ── INIT ──
-  renderBlog();
-  renderVideos();
+const secs=['reel','work','blog','resume'].map(id=>document.getElementById(id));
+const navAs=document.querySelectorAll('[data-nav]');
+new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting)navAs.forEach(a=>a.classList.toggle('active',a.dataset.nav===e.target.id));
+  });
+},{threshold:0.4}).observe&&secs.forEach(s=>s&&new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting)navAs.forEach(a=>a.classList.toggle('active',a.dataset.nav===s.id));
+},{threshold:0.4}).observe(s));
+
+renderVids();renderBlog();
 </script>
 </body>
 </html>
