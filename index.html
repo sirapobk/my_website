@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Sirapob Kosit — CG Artist</title>
+<title>Sirapob Kosit — 3D Generalist</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
@@ -142,7 +142,7 @@ footer{padding:2rem 3rem;display:flex;justify-content:space-between;border-top:1
 <!-- ══ HERO ══ -->
 <section id="reel">
   <div class="reel-iframe-wrap">
-    <iframe
+    <iframe id="heroVid"
       src="https://player.vimeo.com/video/920395967?background=1&autoplay=1&loop=1&muted=1"
       allow="autoplay; fullscreen"></iframe>
   </div>
@@ -234,7 +234,7 @@ footer{padding:2rem 3rem;display:flex;justify-content:space-between;border-top:1
   <span>Bangkok · Thailand</span>
 </footer>
 
-<!-- MODAL: Vimeo Lightbox -->
+<!-- MODAL: Vimeo Lightbox — iframe preloaded, visibility toggled via CSS only -->
 <div class="modal-bg" id="lbModal">
   <div class="modal-box" style="max-width:900px;width:94vw">
     <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.5rem">
@@ -242,7 +242,9 @@ footer{padding:2rem 3rem;display:flex;justify-content:space-between;border-top:1
       <button class="mf-btn-ghost" onclick="closeLB()" style="padding:0.35rem 0.9rem">✕</button>
     </div>
     <div class="lb-wrap">
-      <iframe id="lbIframe" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+      <iframe id="lbIframe"
+        src="https://player.vimeo.com/video/920395967?color=f5f2ed&title=0&byline=0&portrait=0"
+        allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
     </div>
   </div>
 </div>
@@ -305,13 +307,21 @@ document.addEventListener('mousemove',e=>{
 function openModal(id){document.getElementById(id).classList.add('open')}
 function closeModal(id){document.getElementById(id).classList.remove('open')}
 
+const HERO_SRC='https://player.vimeo.com/video/920395967?background=1&autoplay=1&loop=1&muted=1';
+const LB_SRC='https://player.vimeo.com/video/920395967?autoplay=1&color=f5f2ed&title=0&byline=0&portrait=0';
+
 function openLB(){
-  document.getElementById('lbIframe').src='https://player.vimeo.com/video/920395967?autoplay=1&color=f5f2ed&title=0&byline=0&portrait=0';
+  document.getElementById('lbIframe').src=LB_SRC;
   openModal('lbModal');
 }
 function closeLB(){
+  // Stop lightbox
   document.getElementById('lbIframe').src='';
   closeModal('lbModal');
+  // Restart hero — short delay lets modal finish closing first
+  const hero=document.getElementById('heroVid');
+  hero.src='';
+  setTimeout(()=>{ hero.src=HERO_SRC; }, 80);
 }
 function openRead(){openModal('readModal')}
 
