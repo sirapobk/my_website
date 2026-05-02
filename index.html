@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Your Name</title>
+<title>Sirapob Kosit — CG Artist</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
@@ -16,9 +16,9 @@
   --serif:'EB Garamond',Georgia,serif;
   --sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
 }
-html,body{width:100%;height:100%;overflow-x:hidden;background:var(--black);color:var(--white);font-family:var(--sans)}
+html,body{width:100%;overflow-x:hidden;background:var(--black);color:var(--white);font-family:var(--sans)}
 
-.cursor{position:fixed;width:8px;height:8px;border-radius:50%;background:var(--white);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:transform 0.1s}
+.cursor{position:fixed;width:8px;height:8px;border-radius:50%;background:var(--white);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
 .cursor-ring{position:fixed;width:36px;height:36px;border-radius:50%;border:1px solid rgba(245,242,237,0.4);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.18s ease}
 
 nav{
@@ -31,7 +31,7 @@ nav{
 .nav-links a{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--white);text-decoration:none;opacity:0.5;transition:opacity 0.2s}
 .nav-links a:hover,.nav-links a.active{opacity:1}
 
-/* HERO */
+/* ── HERO ── */
 #reel{position:relative;width:100%;height:100vh;overflow:hidden;background:var(--black)}
 .reel-iframe-wrap{position:absolute;inset:0;overflow:hidden}
 .reel-iframe-wrap iframe{
@@ -39,7 +39,7 @@ nav{
   position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
   pointer-events:none;border:none;
 }
-.reel-grad{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 55%,var(--black) 100%);z-index:1}
+.reel-grad{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.2) 40%,var(--black) 100%);z-index:1}
 .reel-content{
   position:absolute;bottom:0;left:0;right:0;z-index:2;
   display:flex;justify-content:space-between;align-items:flex-end;
@@ -47,36 +47,19 @@ nav{
 }
 .reel-title{font-family:var(--serif);font-size:clamp(2.5rem,6vw,5.5rem);font-style:italic;font-weight:400;line-height:1;letter-spacing:-0.02em}
 .reel-meta{text-align:right;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);line-height:2.2}
-.reel-change{
-  position:absolute;bottom:3.5rem;left:50%;transform:translateX(-50%);z-index:3;
-  font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);
-  background:transparent;border:1px solid rgba(245,242,237,0.2);
-  padding:0.4rem 1rem;cursor:pointer;transition:all 0.2s;
+.reel-play{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  z-index:3;cursor:pointer;
+  width:80px;height:80px;border-radius:50%;
+  border:1px solid rgba(245,242,237,0.55);
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(10,10,10,0.35);backdrop-filter:blur(4px);
+  transition:transform 0.25s,border-color 0.25s,background 0.25s;
 }
-.reel-change:hover{color:var(--white);border-color:rgba(245,242,237,0.5)}
+.reel-play:hover{transform:translate(-50%,-50%) scale(1.1);border-color:rgba(245,242,237,0.9);background:rgba(10,10,10,0.55)}
+.reel-play svg{width:22px;height:22px;fill:var(--white);margin-left:4px}
 
-/* WORK */
-#work{padding:6rem 3rem;background:var(--black)}
-.section-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3rem;border-bottom:1px solid rgba(245,242,237,0.1);padding-bottom:1rem}
-.section-row h2{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;opacity:0.4}
-.section-row span{font-size:0.65rem;letter-spacing:0.1em;opacity:0.3}
-
-.vid-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5px;background:rgba(245,242,237,0.07)}
-.vid-item{background:var(--black);position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer}
-.vid-item iframe{position:absolute;inset:0;width:100%;height:100%;border:none;pointer-events:none}
-.vid-overlay{position:absolute;inset:0;background:rgba(10,10,10,0.5);display:flex;align-items:flex-end;padding:1.5rem;opacity:0;transition:opacity 0.35s;z-index:2}
-.vid-item:hover .vid-overlay{opacity:1}
-.vid-label{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--white);line-height:1.8}
-.vid-add-btn{
-  background:transparent;border:none;aspect-ratio:16/9;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.75rem;
-  cursor:pointer;color:rgba(245,242,237,0.25);font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;
-  transition:color 0.2s;
-}
-.vid-add-btn:hover{color:rgba(245,242,237,0.7)}
-.vid-add-btn svg{width:24px;height:24px;opacity:0.4}
-
-/* BLOG */
+/* ── BLOG ── */
 #blog{padding:6rem 3rem;background:var(--black)}
 .s-title{font-family:var(--serif);font-style:italic;font-size:clamp(1.8rem,4vw,3.5rem);font-weight:400;letter-spacing:-0.02em;margin-bottom:0.4rem}
 .s-sub{font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;opacity:0.3;margin-bottom:3rem}
@@ -91,15 +74,8 @@ nav{
 .blog-num{font-size:0.65rem;opacity:0.25;letter-spacing:0.08em}
 .blog-row h3{font-family:var(--serif);font-style:italic;font-size:clamp(1rem,2.4vw,1.6rem);font-weight:400;letter-spacing:-0.01em}
 .blog-pill{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;border:1px solid rgba(245,242,237,0.2);padding:0.28rem 0.7rem;opacity:0.5;white-space:nowrap}
-.blog-add{margin-top:1.5rem}
-.ghost-btn{
-  background:none;border:1px solid rgba(245,242,237,0.18);
-  color:rgba(245,242,237,0.4);font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;
-  padding:0.6rem 1.5rem;cursor:pointer;transition:all 0.2s;
-}
-.ghost-btn:hover{border-color:rgba(245,242,237,0.5);color:var(--white)}
 
-/* RESUME */
+/* ── RESUME ── */
 #resume{padding:6rem 3rem 8rem;background:var(--black)}
 .res-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;margin-top:3rem}
 .res-block{margin-bottom:2.5rem}
@@ -112,29 +88,30 @@ nav{
 .skill-row{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.5rem}
 .skill-pill{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;border:1px solid rgba(245,242,237,0.15);padding:0.28rem 0.75rem;opacity:0.45}
 .contact-row{font-size:0.78rem;opacity:0.4;margin-bottom:0.5rem;letter-spacing:0.03em}
-.contact-row a{color:var(--white);text-decoration:none;border-bottom:1px solid rgba(245,242,237,0.15);transition:opacity 0.2s}
-.contact-row a:hover{opacity:0.7}
+.contact-row a{color:var(--white);text-decoration:none;border-bottom:1px solid rgba(245,242,237,0.15)}
 .dl-btn{display:inline-block;margin-top:1.5rem;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;border:1px solid rgba(245,242,237,0.25);padding:0.7rem 2rem;color:var(--white);text-decoration:none;transition:all 0.25s}
 .dl-btn:hover{background:var(--white);color:var(--black)}
 
-/* FOOTER */
 footer{padding:2rem 3rem;display:flex;justify-content:space-between;border-top:1px solid rgba(245,242,237,0.07);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.25}
 
-/* MODALS */
-.modal-bg{display:none;position:fixed;inset:0;z-index:500;background:rgba(10,10,10,0.88);backdrop-filter:blur(10px);align-items:center;justify-content:center}
+/* ── MODALS ── */
+.modal-bg{display:none;position:fixed;inset:0;z-index:500;background:rgba(10,10,10,0.92);backdrop-filter:blur(10px);align-items:center;justify-content:center}
 .modal-bg.open{display:flex}
-.modal-box{background:#111;border:1px solid rgba(245,242,237,0.1);padding:3rem;width:min(580px,94vw);max-height:90vh;overflow-y:auto}
-.modal-box h2{font-family:var(--serif);font-style:italic;font-size:1.8rem;font-weight:400;margin-bottom:2rem}
-.mf-label{display:block;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;opacity:0.4;margin-bottom:0.4rem}
-.mf-input,.mf-textarea{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(245,242,237,0.15);color:var(--white);font-size:0.9rem;font-family:var(--sans);padding:0.5rem 0;margin-bottom:1.5rem;outline:none;transition:border-color 0.2s}
-.mf-input:focus,.mf-textarea:focus{border-color:rgba(245,242,237,0.55)}
-.mf-textarea{resize:vertical;min-height:120px;line-height:1.7}
-.modal-actions{display:flex;gap:1rem;margin-top:0.5rem}
-.mf-btn{background:var(--white);color:var(--black);border:none;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.75rem 2rem;cursor:pointer;transition:opacity 0.2s}
-.mf-btn:hover{opacity:0.8}
-.mf-btn-ghost{background:transparent;color:var(--dim);border:1px solid rgba(245,242,237,0.15);font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.75rem 1.5rem;cursor:pointer;transition:all 0.2s}
+.modal-box{background:#111;border:1px solid rgba(245,242,237,0.1);padding:3rem;width:min(720px,94vw);max-height:90vh;overflow-y:auto}
+.modal-box h2{font-family:var(--serif);font-style:italic;font-size:1.8rem;font-weight:400;margin-bottom:0.5rem}
+.mf-btn-ghost{background:transparent;color:var(--dim);border:1px solid rgba(245,242,237,0.15);font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.65rem 1.5rem;cursor:pointer;transition:all 0.2s}
 .mf-btn-ghost:hover{color:var(--white);border-color:rgba(245,242,237,0.4)}
-.read-content{font-size:0.9rem;opacity:0.55;line-height:1.95;margin-top:1rem;white-space:pre-wrap}
+
+/* Blog read modal */
+.read-meta{font-size:0.62rem;opacity:0.3;letter-spacing:0.08em;margin-bottom:2rem;margin-top:0.4rem}
+.read-section{margin-bottom:1.8rem}
+.read-section h3{font-family:var(--serif);font-style:italic;font-size:1.1rem;font-weight:400;margin-bottom:0.6rem;opacity:0.8}
+.read-section p{font-size:0.88rem;opacity:0.55;line-height:1.95}
+.read-quote{border-left:1px solid rgba(245,242,237,0.2);padding-left:1.2rem;margin:1.2rem 0;font-size:0.85rem;opacity:0.45;line-height:1.9;font-style:italic}
+.read-link{display:inline-block;margin-top:2rem;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;border:1px solid rgba(245,242,237,0.2);padding:0.6rem 1.5rem;color:var(--white);text-decoration:none;transition:all 0.2s}
+.read-link:hover{background:var(--white);color:var(--black)}
+
+/* Vimeo lightbox */
 .lb-wrap{position:relative;padding-bottom:56.25%;height:0;margin-top:1.5rem}
 .lb-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
 
@@ -142,10 +119,9 @@ footer{padding:2rem 3rem;display:flex;justify-content:space-between;border-top:1
   nav{padding:1.4rem 1.5rem}
   #work,#blog,#resume{padding:4rem 1.5rem}
   .reel-content{padding:2.5rem 1.5rem}
-  .vid-grid{grid-template-columns:1fr}
+  .res-grid{grid-template-columns:1fr;gap:2.5rem}
   .blog-row{grid-template-columns:2.5rem 1fr;gap:1rem}
   .blog-pill{display:none}
-  .res-grid{grid-template-columns:1fr;gap:2.5rem}
 }
 </style>
 </head>
@@ -155,54 +131,49 @@ footer{padding:2rem 3rem;display:flex;justify-content:space-between;border-top:1
 <div class="cursor-ring" id="curRing"></div>
 
 <nav>
-  <a href="#reel" class="nav-logo">Your Name</a>
+  <a href="#reel" class="nav-logo">Sirapob Kosit</a>
   <ul class="nav-links">
     <li><a href="#reel" class="active" data-nav="reel">Reel</a></li>
-    <li><a href="#work" data-nav="work">Work</a></li>
-    <li><a href="#blog" data-nav="blog">Writing</a></li>
+    <li><a href="#blog" data-nav="blog">Blog</a></li>
     <li><a href="#resume" data-nav="resume">Info</a></li>
   </ul>
 </nav>
 
-<!-- HERO REEL -->
+<!-- ══ HERO ══ -->
 <section id="reel">
   <div class="reel-iframe-wrap">
-    <iframe id="heroVid"
-      src="https://player.vimeo.com/video/76979871?background=1&autoplay=1&loop=1&muted=1"
+    <iframe
+      src="https://player.vimeo.com/video/920395967?background=1&autoplay=1&loop=1&muted=1"
       allow="autoplay; fullscreen"></iframe>
   </div>
   <div class="reel-grad"></div>
+  <div class="reel-play" onclick="openLB()">
+    <svg viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14"/></svg>
+  </div>
   <div class="reel-content">
-    <div class="reel-title">Showreel<br/><span style="opacity:0.45;font-style:normal;font-size:0.7em">2025</span></div>
+    <div class="reel-title">Showreel<br/><span style="opacity:0.4;font-style:normal;font-size:0.65em">2024</span></div>
     <div class="reel-meta">
-      Director &amp; Editor<br/>
+      Lighting Artist &amp; Compositor<br/>
       Bangkok, Thailand<br/>
-      <span style="opacity:0.35">Available for projects</span>
+      <span style="opacity:0.35">CG Artist · Animation</span>
     </div>
   </div>
-  <button class="reel-change" onclick="openHeroEdit()">Change Hero Video</button>
 </section>
 
-<!-- WORK -->
-<section id="work">
-  <div class="section-row">
-    <h2>Selected Work</h2>
-    <span id="vidCount"></span>
-  </div>
-  <div class="vid-grid" id="vidGrid"></div>
-</section>
-
-<!-- BLOG -->
+<!-- ══ BLOG ══ -->
 <section id="blog">
-  <div class="s-title">Writing</div>
+  <div class="s-title">Blog</div>
   <div class="s-sub">Notes &amp; Thoughts</div>
-  <div class="blog-list" id="blogList"></div>
-  <div class="blog-add">
-    <button class="ghost-btn" onclick="openBlogModal()">+ New Entry</button>
+  <div class="blog-list">
+    <div class="blog-row" onclick="openRead()">
+      <span class="blog-num">01</span>
+      <h3>รีวิวการฝึกงานบริษัทแอนิเมชัน 6 เดือน ปี 2022</h3>
+      <span class="blog-pill">Review</span>
+    </div>
   </div>
 </section>
 
-<!-- INFO / RESUME -->
+<!-- ══ RESUME ══ -->
 <section id="resume">
   <div class="s-title">Info</div>
   <div class="s-sub">About &amp; Experience</div>
@@ -210,14 +181,13 @@ footer{padding:2rem 3rem;display:flex;justify-content:space-between;border-top:1
     <div>
       <div class="res-block">
         <div class="res-block-label">About</div>
-        <p class="res-body">ผมเป็น director และ editor ที่ทำงานด้าน visual storytelling ทั้ง commercial, short film และ music video สนใจเรื่อง cinematic lighting และ color มาตลอด ปัจจุบันรับงาน freelance ทั้ง local และ international</p>
+        <p class="res-body">ผมชื่อพู — CG Artist ที่เชี่ยวชาญด้าน Lighting, Compositing และ Look Development สำหรับ Animation และ Visual Effects จบจากคณะดิจิทัลมีเดีย สาขาแอนิเมชันและวิชวลเอฟเฟค มหาวิทยาลัยศรีปทุม</p>
         <a href="#" class="dl-btn">Download CV ↓</a>
       </div>
       <div class="res-block">
         <div class="res-block-label">Contact</div>
-        <div class="contact-row">Email — <a href="mailto:you@email.com">you@email.com</a></div>
-        <div class="contact-row">Vimeo — <a href="#">vimeo.com/yourname</a></div>
-        <div class="contact-row">Instagram — <a href="#">@yourname</a></div>
+        <div class="contact-row">Medium — <a href="https://medium.com/@sirapob-ks" target="_blank">@sirapob-ks</a></div>
+        <div class="contact-row">Vimeo — <a href="https://vimeo.com/920395967" target="_blank">vimeo.com/sirapob</a></div>
         <div class="contact-row">Location — Bangkok, Thailand</div>
       </div>
     </div>
@@ -225,38 +195,34 @@ footer{padding:2rem 3rem;display:flex;justify-content:space-between;border-top:1
       <div class="res-block">
         <div class="res-block-label">Experience</div>
         <div class="exp-item">
-          <h4>Senior Video Editor</h4>
-          <div class="exp-meta">Studio Name · 2023 – Present</div>
-          <p>ดูแล post-production ตั้งแต่ offline edit จนถึง color grade และ final delivery</p>
+          <h4>Lighting Artist &amp; Compositor</h4>
+          <div class="exp-meta">Animation Studio · มิ.ย. 2022 – พ.ย. 2022</div>
+          <p>จัดแสงและ composite ในโปรเจกต์ animation series ใช้ Maya และ Nuke เป็นหลัก</p>
         </div>
         <div class="exp-item">
-          <h4>Freelance Director</h4>
-          <div class="exp-meta">Self · 2021 – Present</div>
-          <p>กำกับ commercial และ short film ให้แบรนด์ต่างๆ ทั้ง local และ international</p>
-        </div>
-        <div class="exp-item">
-          <h4>Motion Designer</h4>
-          <div class="exp-meta">Agency · 2019 – 2021</div>
-          <p>สร้าง motion graphic และ visual effect สำหรับ broadcast และ digital</p>
+          <h4>CG Artist (Intern)</h4>
+          <div class="exp-meta">Animation Studio · 2022</div>
+          <p>Lighting, Look Dev, และ VFX support ใน production pipeline จริง</p>
         </div>
       </div>
       <div class="res-block">
         <div class="res-block-label">Skills</div>
         <div class="skill-row">
-          <span class="skill-pill">Premiere Pro</span>
-          <span class="skill-pill">DaVinci Resolve</span>
-          <span class="skill-pill">After Effects</span>
-          <span class="skill-pill">Cinema 4D</span>
+          <span class="skill-pill">Maya</span>
+          <span class="skill-pill">Nuke</span>
           <span class="skill-pill">Lighting</span>
-          <span class="skill-pill">Color Grading</span>
-          <span class="skill-pill">Cinematography</span>
+          <span class="skill-pill">Compositing</span>
+          <span class="skill-pill">Look Dev</span>
+          <span class="skill-pill">Color Theory</span>
+          <span class="skill-pill">Arnold</span>
+          <span class="skill-pill">After Effects</span>
         </div>
       </div>
       <div class="res-block">
         <div class="res-block-label">Education</div>
         <div class="exp-item">
-          <h4>Film &amp; Media Arts</h4>
-          <div class="exp-meta">Chulalongkorn University · 2015 – 2019</div>
+          <h4>Animation &amp; Visual Effects</h4>
+          <div class="exp-meta">มหาวิทยาลัยศรีปทุม · คณะดิจิทัลมีเดีย</div>
         </div>
       </div>
     </div>
@@ -264,78 +230,68 @@ footer{padding:2rem 3rem;display:flex;justify-content:space-between;border-top:1
 </section>
 
 <footer>
-  <span>© 2025 Your Name</span>
+  <span>© 2025 Sirapob Kosit</span>
   <span>Bangkok · Thailand</span>
 </footer>
 
-<!-- MODAL: Add Video -->
-<div class="modal-bg" id="vidModal">
-  <div class="modal-box">
-    <h2>Add Video</h2>
-    <label class="mf-label">Vimeo ID or URL</label>
-    <input class="mf-input" id="mfVimeoId" placeholder="e.g. 123456789" />
-    <label class="mf-label">Title</label>
-    <input class="mf-input" id="mfVimeoTitle" placeholder="Video title" />
-    <label class="mf-label">Category</label>
-    <input class="mf-input" id="mfVimeoTag" placeholder="e.g. Commercial, Short Film" />
-    <div class="modal-actions">
-      <button class="mf-btn" onclick="saveVid()">Add</button>
-      <button class="mf-btn-ghost" onclick="closeModal('vidModal')">Cancel</button>
+<!-- MODAL: Vimeo Lightbox -->
+<div class="modal-bg" id="lbModal">
+  <div class="modal-box" style="max-width:900px;width:94vw">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.5rem">
+      <h2 style="font-size:1.3rem">Showreel 2024</h2>
+      <button class="mf-btn-ghost" onclick="closeLB()" style="padding:0.35rem 0.9rem">✕</button>
     </div>
-  </div>
-</div>
-
-<!-- MODAL: Change Hero -->
-<div class="modal-bg" id="heroModal">
-  <div class="modal-box">
-    <h2>Hero Video</h2>
-    <label class="mf-label">Vimeo ID or URL</label>
-    <input class="mf-input" id="mfHeroId" placeholder="e.g. 76979871" />
-    <div class="modal-actions">
-      <button class="mf-btn" onclick="saveHero()">Apply</button>
-      <button class="mf-btn-ghost" onclick="closeModal('heroModal')">Cancel</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: Add Blog -->
-<div class="modal-bg" id="blogModal">
-  <div class="modal-box">
-    <h2>New Entry</h2>
-    <label class="mf-label">Title</label>
-    <input class="mf-input" id="mfBlogTitle" placeholder="Title" />
-    <label class="mf-label">Tag</label>
-    <input class="mf-input" id="mfBlogTag" placeholder="e.g. Notes, Essay, Review" />
-    <label class="mf-label">Content</label>
-    <textarea class="mf-textarea" id="mfBlogContent" placeholder="Write your entry..."></textarea>
-    <div class="modal-actions">
-      <button class="mf-btn" onclick="saveBlog()">Publish</button>
-      <button class="mf-btn-ghost" onclick="closeModal('blogModal')">Cancel</button>
+    <div class="lb-wrap">
+      <iframe id="lbIframe" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
     </div>
   </div>
 </div>
 
 <!-- MODAL: Read Blog -->
 <div class="modal-bg" id="readModal">
-  <div class="modal-box" style="max-width:680px">
-    <span style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;opacity:0.3" id="rdTag"></span>
-    <h2 style="margin-top:0.4rem" id="rdTitle"></h2>
-    <span style="font-size:0.62rem;opacity:0.25;letter-spacing:0.06em" id="rdDate"></span>
-    <div class="read-content" id="rdContent"></div>
-    <div class="modal-actions" style="margin-top:2rem">
-      <button class="mf-btn-ghost" onclick="closeModal('readModal')">← Close</button>
-    </div>
-  </div>
-</div>
+  <div class="modal-box">
+    <span style="font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;opacity:0.3">Review · Nov 2022</span>
+    <h2 style="margin-top:0.4rem">รีวิวการฝึกงานบริษัทแอนิเมชัน 6 เดือน ปี 2022</h2>
+    <div class="read-meta">Sirapob_ks · 5 Nov 2022 · 2 min read</div>
 
-<!-- MODAL: Vimeo Lightbox -->
-<div class="modal-bg" id="lbModal">
-  <div class="modal-box" style="max-width:900px;width:94vw">
-    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.5rem">
-      <h2 id="lbTitle" style="font-size:1.3rem"></h2>
-      <button class="mf-btn-ghost" onclick="closeLB()" style="padding:0.35rem 0.9rem">✕</button>
+    <div class="read-section">
+      <p>เข้ามาสู่ช่วงท้ายของการเรียนมหาลัยของผมแล้ว ปี 4 ทางคณะมีทางเลือกให้ 2 ทาง ได้แก่ ฝึกงานยาวๆ จนเรียนจบ หรือฝึกงานเสร็จแล้วกลับมาทำ Thesis ผมเลือกตัวเลือกแรก — ฝึกงานแล้วออกไปทำงานต่อเลย และประสบการณ์ครั้งนี้สนุกยากที่จะลืมครับ</p>
     </div>
-    <div class="lb-wrap"><iframe id="lbIframe" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+
+    <div class="read-section">
+      <p>ผมเข้าฝึกงานในตำแหน่ง <strong style="opacity:0.8;font-weight:500">Lighting Artist</strong> ระยะเวลา มิ.ย. 2022 – พ.ย. 2022 (6 เดือน) หน้าที่หลักคือจัดแสงในซีนแอนิเมชันให้ตรงตาม Color Script และ composite ในคนเดียวกัน โดยใช้โปรแกรม Maya และ Nuke เป็นหลัก</p>
+    </div>
+
+    <div class="read-section">
+      <h3>Phase 1 — ปรับพื้นฐาน Color &amp; Lighting</h3>
+      <p>เรียนเกี่ยวกับการจัดแสง ว่าเราจัดแสงเพื่ออะไร สีและแสงแบบไหนให้อารมณ์แบบไหน เนื้อหาครอบคลุม Three-Point Lighting, Color Theory, Lighting for Animation รวมถึงศัพท์ใน Production มี Assignment ฝึกจัดแสงใน Maya ให้เหมือนซีนจากภาพยนตร์แอนิเมชันต่างๆ</p>
+      <div class="read-quote">พี่ๆ จะคอยตรวจงานอาทิตย์ละ 2 ครั้ง มีการแนะนำและติอย่างละเอียด</div>
+    </div>
+
+    <div class="read-section">
+      <h3>Phase 2 — เรียนรู้ Maya &amp; Nuke</h3>
+      <p>ได้จับโปรแกรม Maya และ Nuke ตั้งแต่พื้นฐานจนถึงระดับกลาง Nuke เป็น Node-Based Compositing ที่ทดสอบวิธีการใหม่ๆ ได้สะดวก และมองภาพรวมของงานได้ง่าย ฝึก "น้อย แต่ มาก" — จัดการ scene ให้เบาและเป็นระบบ เพื่อตัวเองและคนที่จะมาทำงานต่อ</p>
+    </div>
+
+    <div class="read-section">
+      <h3>Phase 3 — Lighting จริง</h3>
+      <p>พี่ๆ แจกซีนที่ต้องจัดแสงมาให้ โดยต้องทำให้เหมือน Reference ที่กำหนดแบบเป๊ะๆ</p>
+    </div>
+
+    <div class="read-section">
+      <h3>Phase 4 — งานจริง</h3>
+      <p>ได้เข้าไปใน production animation series หน้าที่คือนำ effect มา render เพื่อส่งให้ลูกค้าตรวจและรับ comment กลับมาแก้ไข Phase นี้ใช้เวลาประมาณ 4 เดือนจาก 6 เดือนที่ฝึกงาน</p>
+    </div>
+
+    <div class="read-section">
+      <h3>สรุป</h3>
+      <p>โดยรวมเป็นการฝึกงานที่สนุกและท้าทายมาก นอกจากได้เรียนรู้เกี่ยวกับการทำงาน ยังได้ฝึกการพูดคุยกับเพื่อนร่วมงาน รวมทั้งวัฒนธรรมองค์กร เปรียบเสมือนเป็น introduction ของมนุษย์เงินเดือนเลยก็ว่าได้</p>
+    </div>
+
+    <div style="margin-top:2rem;display:flex;gap:1rem;align-items:center">
+      <a class="read-link" href="https://medium.com/@sirapob-ks/รีวิวการฝึกงานบริษัทแอนิเมชัน-6-เดือน-ปี-2022-b937247f89b6" target="_blank">อ่านต้นฉบับบน Medium ↗</a>
+      <button class="mf-btn-ghost" onclick="closeModal('readModal')">← ปิด</button>
+    </div>
   </div>
 </div>
 
@@ -346,124 +302,30 @@ document.addEventListener('mousemove',e=>{
   ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px';
 });
 
-function extractId(s){
-  s=(s||'').trim();
-  const m=s.match(/(?:vimeo\.com\/|video\/)(\d+)/);
-  if(m)return m[1];
-  if(/^\d+$/.test(s))return s;
-  return null;
-}
-
-const dVids=[
-  {id:'76979871',title:'Big Buck Bunny',tag:'Short Film'},
-  {id:'148751763',title:'Showreel 2024',tag:'Reel'},
-];
-const dPosts=[
-  {id:1,title:'On the Art of Restraint in Editing',tag:'Notes',date:'2 May 2025',content:'The best cuts are the ones the audience never notices. Restraint in editing is not about removing things — it is about knowing what serves the story and what serves the editor\'s ego.\n\nIn my experience, the hardest skill to develop is the ability to cut a scene you love because the film does not need it.'},
-  {id:2,title:'Vimeo vs YouTube for Creatives in 2025',tag:'Essay',date:'18 Apr 2025',content:'Vimeo has always been the platform of choice for serious filmmakers — better compression, a cleaner aesthetic, and an audience that comes to watch rather than scroll.\n\nMy current approach: Vimeo for portfolio and client deliverables, YouTube for reach and discovery.'},
-];
-
-let vids=JSON.parse(localStorage.getItem('pf_vids')||'null')||dVids;
-let posts=JSON.parse(localStorage.getItem('pf_posts')||'null')||dPosts;
-const sv=()=>localStorage.setItem('pf_vids',JSON.stringify(vids));
-const sp=()=>localStorage.setItem('pf_posts',JSON.stringify(posts));
-
-function renderVids(){
-  const g=document.getElementById('vidGrid');
-  document.getElementById('vidCount').textContent=vids.length+' items';
-  g.innerHTML=vids.map(v=>`
-    <div class="vid-item" onclick="openLB('${v.id}','${v.title.replace(/'/g,"\\'")}')">
-      <iframe src="https://player.vimeo.com/video/${v.id}?background=1&muted=1" allow="autoplay"></iframe>
-      <div class="vid-overlay"><div class="vid-label">${v.title}<br/><span style="opacity:0.45">${v.tag||''}</span></div></div>
-    </div>
-  `).join('')+`
-    <button class="vid-add-btn" onclick="openModal('vidModal')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Add Video
-    </button>
-  `;
-}
-
-function renderBlog(){
-  const l=document.getElementById('blogList');
-  l.innerHTML=posts.map((p,i)=>`
-    <div class="blog-row" onclick="openRead(${p.id})">
-      <span class="blog-num">${String(i+1).padStart(2,'0')}</span>
-      <h3>${p.title}</h3>
-      <span class="blog-pill">${p.tag}</span>
-    </div>
-  `).join('');
-}
-
 function openModal(id){document.getElementById(id).classList.add('open')}
 function closeModal(id){document.getElementById(id).classList.remove('open')}
 
-function openHeroEdit(){openModal('heroModal')}
-function saveHero(){
-  const id=extractId(document.getElementById('mfHeroId').value);
-  if(!id){alert('Invalid Vimeo ID');return}
-  document.getElementById('heroVid').src=`https://player.vimeo.com/video/${id}?background=1&autoplay=1&loop=1&muted=1`;
-  closeModal('heroModal');
-  document.getElementById('mfHeroId').value='';
-}
-
-function saveVid(){
-  const id=extractId(document.getElementById('mfVimeoId').value);
-  const title=document.getElementById('mfVimeoTitle').value.trim()||'Untitled';
-  const tag=document.getElementById('mfVimeoTag').value.trim()||'';
-  if(!id){alert('Invalid Vimeo ID or URL');return}
-  vids.push({id,title,tag});sv();renderVids();closeModal('vidModal');
-  ['mfVimeoId','mfVimeoTitle','mfVimeoTag'].forEach(x=>document.getElementById(x).value='');
-}
-
-function openBlogModal(){openModal('blogModal')}
-function saveBlog(){
-  const title=document.getElementById('mfBlogTitle').value.trim();
-  const tag=document.getElementById('mfBlogTag').value.trim()||'Notes';
-  const content=document.getElementById('mfBlogContent').value.trim();
-  if(!title||!content){alert('Please fill in title and content');return}
-  const d=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
-  posts.unshift({id:Date.now(),title,tag,date:d,content});
-  sp();renderBlog();closeModal('blogModal');
-  ['mfBlogTitle','mfBlogTag','mfBlogContent'].forEach(x=>document.getElementById(x).value='');
-}
-
-function openRead(id){
-  const p=posts.find(x=>x.id===id);if(!p)return;
-  document.getElementById('rdTag').textContent=p.tag;
-  document.getElementById('rdTitle').textContent=p.title;
-  document.getElementById('rdDate').textContent=p.date;
-  document.getElementById('rdContent').textContent=p.content;
-  openModal('readModal');
-}
-
-function openLB(id,title){
-  document.getElementById('lbTitle').textContent=title;
-  document.getElementById('lbIframe').src=`https://player.vimeo.com/video/${id}?autoplay=1&color=f5f2ed&title=0&byline=0&portrait=0`;
+function openLB(){
+  document.getElementById('lbIframe').src='https://player.vimeo.com/video/920395967?autoplay=1&color=f5f2ed&title=0&byline=0&portrait=0';
   openModal('lbModal');
 }
-function closeLB(){document.getElementById('lbIframe').src='';closeModal('lbModal')}
+function closeLB(){
+  document.getElementById('lbIframe').src='';
+  closeModal('lbModal');
+}
+function openRead(){openModal('readModal')}
 
 document.querySelectorAll('.modal-bg').forEach(el=>{
   el.addEventListener('click',e=>{
-    if(e.target===el){
-      if(el.id==='lbModal')closeLB();
-      else closeModal(el.id);
-    }
+    if(e.target===el){if(el.id==='lbModal')closeLB();else closeModal(el.id)}
   });
 });
 
-const secs=['reel','work','blog','resume'].map(id=>document.getElementById(id));
+const secs=['reel','blog','resume'].map(id=>document.getElementById(id));
 const navAs=document.querySelectorAll('[data-nav]');
-new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting)navAs.forEach(a=>a.classList.toggle('active',a.dataset.nav===e.target.id));
-  });
-},{threshold:0.4}).observe&&secs.forEach(s=>s&&new IntersectionObserver(entries=>{
+secs.forEach(s=>s&&new IntersectionObserver(entries=>{
   if(entries[0].isIntersecting)navAs.forEach(a=>a.classList.toggle('active',a.dataset.nav===s.id));
 },{threshold:0.4}).observe(s));
-
-renderVids();renderBlog();
 </script>
 </body>
 </html>
